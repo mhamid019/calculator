@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Calculatro</title>
+    
+    <!-- icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /* this code is changed in media queries */
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        a {text-decoration: none;}
+        button, input[type="submit"] {cursor: pointer;}
+        html{font-family: "Lexend", system-ui, sans-serif; font-size: 15px;}
+        body{font-size: 16px;}
+        img{vertical-align: bottom;}
+        h1{font-size: 2.5rem;}
+        h2{font-size: 2rem;}
+        h3{font-size: 1.4rem;}
+        h4{font-size: 1.2rem;}
+        p {margin: 0.8rem 0;}
+        body {background: purple;}
+        .btn, select, [type="submit"], input[type="reset"], input[type="text"],input[type="number"],input[type="password"],input[type="search"],input[type="email"]{ height: 36px; padding: 8px 12px; border: 1px solid rgb(233, 219, 219); color: inherit; border-radius: 5px; vertical-align: middle; margin: 5px;}
+
+        /* google font */
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Orbitron:wght@400..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body{
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(rgb(97, 115, 157), rgb(0, 0, 34));
+        }
+
+        .title {
+            position: absolute;
+            top: 20px;
+            color: rgb(69, 237, 153);
+        }
+        .calculator {
+            max-width: 300px;
+            /* border: 1px solid red; */
+            border-radius: 14px;
+            padding: 1rem;
+            box-shadow: 0 0 18px rgb(119, 124, 152), 0 0 14px rgb(48, 56, 103) inset;
+            /* border: 4px solid rgb(160, 130, 135); */
+        }
+        .calculator input {
+            display: block;
+            width: 100%;
+            padding: 1rem 0.2rem;
+            background: transparent;
+            outline: none;
+            border: none;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: rgb(245, 245, 163);
+        }
+        input::placeholder {color: rgb(255, 239, 239)}
+        .buttons {display: flex; justify-content: space-between;}
+        .buttons button {
+            border: none; 
+            outline: none;
+            background: transparent;
+            width: 56px;
+            line-height: 56px;
+            font-size: 1.4rem;
+            border-radius: 50%;
+            margin: 4px;
+            box-shadow: 0 0 4px rgb(36, 27, 27) inset, 0 0 6px rgb(22, 22, 26);
+            background: rgb(48, 47, 52);
+            color: rgb(157, 237, 153);
+            font-weight: bold;
+            transition: 0.3s;
+            user-select: none;
+        }
+
+        .buttons button:hover {box-shadow: 0 0 4px rgb(36, 27, 27) inset, 0 0 3px rgb(190, 190, 209);}
+
+        .calculator .equal {background: rgb(243, 163, 15); color: rgb(70, 70, 82);}
+        .calculator .operator {color: rgb(222, 144, 10);}
+
+        @media screen and (max-width: 400px) {
+            .calculator {
+                margin: 0 1rem;
+            }
+            .calculator button {
+                width: 50px;
+                line-height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <h1 class="title">Calculate Now!</h1>
+
+    <div class="calculator">
+        <input placeholder="0" id="result" readonly>
+        <div class="buttons">
+            <button class="operator">AC</button>
+            <button class="operator">DEL</button>
+            <button class="operator">%</button>
+            <button class="operator">/</button>
+        </div>
+        <div class="buttons">
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator">*</button>
+        </div>
+        <div class="buttons">
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator">-</button>
+        </div>
+        <div class="buttons">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="operator">+</button>
+        </div>
+        <div class="buttons">
+            <button>00</button>
+            <button>0</button>
+            <button>.</button>
+            <button class="equal">=</button>
+        </div>
+    </div>
+
+    
+
+    <!--jQuery added-->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+    <!-- easing events of jQuery -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script> -->
+    
+    <script>
+
+        // code for calculator
+        let string = "";
+        let result = document.getElementById("result");
+        let buttons = document.querySelectorAll("button");
+        Array.from(buttons).forEach((button) => {
+            button.addEventListener("click", (e)=> {
+                if(e.target.innerHTML == "=") {
+                    string = eval(string);
+                    result.value = eval(string);
+                } else if(e.target.innerHTML == "AC") {
+                    string = "";
+                    result.value = string;
+                } else if(e.target.innerHTML == "DEL") {
+                    string = string.substring(0, string.length - 1);
+                    result.value = string;
+                } else {
+                    string = string + e.target.innerHTML;
+                    result.value = string;
+                }
+            });
+        });
+        
+
+
+
+        // console.log(a.innerHTML = 55);
+
+        // change the bg color based on the below conditions
+        function changeBackground() {
+            const hr = new Date().getHours();
+            const myBody = document.querySelector("body");
+            if(hr >= 6 && hr < 19) {
+                myBody.style.backgroundColor = "#cc5858";
+            } else {
+                myBody.style.backgroundColor = "#aa2d99";
+            }
+        }
+        changeBackground();
+
+    </script>
+
+</body>
+</html> 
